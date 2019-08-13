@@ -1,28 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { FuntionsGLobales } from '../../../../shared/services/funtionsGlobales';
+import { LeadService } from '../../../../shared/services/leadService.service';
+import { Lead } from '../../../../shared/models/lead';
 
 @Component({
     selector: 'app-maps',
-    templateUrl: './maps.component.html',
+    templateUrl: './maps.component.html'
 })
 export class MapsComponent implements OnInit {
-    constructor() { }
+    today: any;
+    lead: Lead;
+    leads: Lead[];
+    constructor(private _funtionsGlobales: FuntionsGLobales, private _leadService: LeadService) {}
     ngOnInit() {
-
-        $(function() {
-            $('#world-map-gdp').vectorMap({
-              map: 'world_mill',
-              series: {
-                regions: [{
-                  values: gdpData,
-                  scale: ['#C8EEFF', '#0071A4'],
-                  normalizeFunction: 'polynomial'
-                }]
-              },
-              onRegionTipShow: function(e, el, code) {
-                el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-              }
-            });
-          });
-
+        this._leadService.getLeads().subscribe(res => {
+            this.leads = res;
+            for (let i = 0; i < this.leads.length; i++) {}
+            console.log(this.leads);
+        });
     }
 }
