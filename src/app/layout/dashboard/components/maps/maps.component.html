@@ -1,0 +1,102 @@
+<p-table #dt [columns]="cols" [value]="leads" selectionMode="multiple" [(selection)]="selectedLeads" [paginator]="true" [rows]="10" sortMode="multiple">
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+        </div>
+        <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-file" iconPos="left" label="Descargar todos" (click)="dt.exportCSV()" style="float:left"></button>
+            <button type="button" pButton icon="fa fa-file" iconPos="left" label="Descargar seleccion" (click)="dt.exportCSV({ selectionOnly: true })" style="float:right"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Año</th>
+            <th>Mes</th>
+            <th>Pais</th>
+            <th>Sucursal</th>
+            <th>Google</th>
+            <th>Facebook</th>
+            <th>Off-Line</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+
+            <td>
+                {{ rowData.anio }}
+            </td>
+            <td>
+                {{ rowData.mes }}
+            </td>
+            <td>
+                {{ rowData.idPais }}
+            </td>
+            <td>
+                {{ rowData.idSucursal }}
+            </td>
+
+            <td style="text-align: center;">
+                <tr>
+                    <TD COLSPAN="3">{{ googleN }}</TD>
+                </tr>
+                <tr>
+                    <td>
+                        {{google.EspectacularGDL}}
+                    </td>
+                    <td>
+                        {{google.EspectacularBorderline}}
+                    </td>
+                    <td>
+                        {{google.Excelsior}}
+                    </td>
+                </tr>
+            </td>
+
+            <td>
+                <tr>
+                    <td COLSPAN="12">
+                        {{ faceN }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ face.ChatPaginaWeb }}</td>
+                    <td>{{ face.ChatFacebook }}</td>
+                    <td>{{ face.instagram }}</td>
+                    <td>{{ face.AppWeb }}</td>
+                    <td>{{ face.Backlights }}</td>
+                    <td>{{ face.BiocarreraSatelite }}</td>
+                    <td>{{ face.Cine }}</td>
+                    <td>{{ face.ConvenioCorporativo }}</td>
+                    <td>{{ face.Crisalix }}</td>
+                    <td>{{ face.EnriqueGuajardo }}</td>
+                    <td>{{ face.Espectacular }}</td>
+                    <td>{{ face.EspectacularSatelite }}</td>
+
+
+                </tr>
+            </td>
+            <td>
+                <tr>
+                    <td> {{offLineN}}</td>
+                </tr>
+                <tr>
+                    <td> {{ offLine.EspectacularBorderline}}</td>
+                    <td> {{ offLine.EspectacularGDL }}</td>
+                    <td> {{ offLine.Excelsior }}</td>
+                </tr>
+
+
+            </td>
+
+
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="summary">
+        <ul>
+            <li *ngFor="let car of selectedLeads" style="text-align: left"> -->
+    <!-- {{leads.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}} -->
+    <!-- </li>
+        </ul>
+    </ng-template> -->
+</p-table>

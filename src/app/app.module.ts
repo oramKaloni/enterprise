@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+
 
 @NgModule({
     imports: [
@@ -18,7 +21,10 @@ import { AuthGuard } from './shared';
         HttpClientModule,
         LanguageTranslationModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        TableModule,
+        BrowserAnimationsModule,
+        ButtonModule
     ],
     declarations: [AppComponent],
     providers: [AuthGuard],

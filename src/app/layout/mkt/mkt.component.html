@@ -1,0 +1,129 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Sales'" [icon]="'fa-bar-chart-o'"></app-page-header>
+
+    <!-- <div class="row">
+        <div class="col-12">
+            <p-dialog header="Title" [(visible)]="display">
+                Content
+            </p-dialog>
+
+            <button type="button" (click)="actualizarLeads()" pButton icon="pi pi-info-circle" label="Show"></button>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-8 col-xs-12" style="float: left">
+            <div class="card-header">Ventas totales por Año</div>
+            <div class="card-body">
+                <p-chart type="doughnut" [data]="doughnutChartData"></p-chart>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="card-header">Totales</div>
+            <div class="card-body">
+                <ul style=" list-style-type: none;  display: inline-block; text-align: center; margin-top: 1rem;
+                padding: 1rem;">
+                    <li><b style="color:#FF6384 ; font-size: 25px;">2016</b> {{ totalHair16 | number: '3.1-1' }}</li>
+                    <li style="display: inline-block; ">
+                        <b style="color:#36A2EB ; font-size: 25px; ">2017</b> {{ totalHair17 | number: '3.1-1' }}
+                    </li>
+                    <li style="display: inline-block;">
+                        <b style="color:#FFCE56; font-size: 25px;  ">2018</b> {{ totalHair18 | number: '3.1-1' }}
+                    </li>
+                    <li style="display: inline-block; ">
+                        <b style="color:#18c73f ; font-size: 25px; ">2019</b> {{ totalHair19 | number: '3.1-1' }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="line" height="380px" [data]="dataHair" [options]="optionsH"></p-chart>
+            </div>
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="doughnut" [data]="datahairbyYear"></p-chart>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul style=" list-style-type: none;  display: inline-block; text-align: center">
+                            <li style="display: inline-block; float: left;">
+                                <b style="color:#FF6384 ; font-size: 25px; margin-right: 20px;">2016</b> {{ totalHair16 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#36A2EB ; font-size: 25px; margin-right: 20px; ">2017</b> {{ totalHair17 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block;float: left;">
+                                <b style="color:#FFCE56; font-size: 25px; margin-right: 20px; ">2018</b> {{ totalHair18 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#18c73f ; font-size: 25px; margin-right: 20px;">2019</b> {{ totalHair19 | number: '3.1-1' }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="line" height="380px" [data]="dataProducto" [options]="optionsP"></p-chart>
+            </div>
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="doughnut" [data]="dataProductobyYear"></p-chart>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul style=" list-style-type: none;  display: inline-block; text-align: center">
+                            <li style="display: inline-block; float: left;">
+                                <b style="color:#FF6384 ; font-size: 25px; margin-right: 20px;">2016</b> {{ totalProducto16 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#36A2EB ; font-size: 25px; margin-right: 20px; ">2017</b> {{ totalProducto17 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block;float: left;">
+                                <b style="color:#FFCE56; font-size: 25px; margin-right: 20px; ">2018</b> {{ totalProducto18 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#18c73f ; font-size: 25px; margin-right: 20px;">2019</b> {{ totalProducto19 | number: '3.1-1' }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="line" height="380px" [data]="dataMedical" [options]="optionsM"></p-chart>
+            </div>
+            <div class=" col-xs-12 col-md-6" style="float: left">
+                <p-chart type="doughnut" [data]="dataMedicalbyYear"></p-chart>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul style=" list-style-type: none;  display: inline-block; text-align: center">
+                            <li style="display: inline-block; float: left;">
+                                <b style="color:#FF6384 ; font-size: 25px; margin-right: 20px;">2016</b> {{ totalmedical16 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#36A2EB ; font-size: 25px; margin-right: 20px; ">2017</b> {{ totalmedical17 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block;float: left;">
+                                <b style="color:#FFCE56; font-size: 25px; margin-right: 20px; ">2018</b> {{ totalmedical18 | number: '3.1-1' }}
+                            </li>
+                            <li style="display: inline-block; float:right">
+                                <b style="color:#18c73f ; font-size: 25px; margin-right: 20px;">2019</b> {{ totalmedical19 | number: '3.1-1' }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

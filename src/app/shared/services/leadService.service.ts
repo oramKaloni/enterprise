@@ -18,18 +18,20 @@ export class LeadService {
         return this._http.get(`${this.url}leads/`);
     }
     getOne(idLead) {
-        return this._http.get(`${this.url}leads/`, idLead);
+
+
+        return this._http.get(`${this.url}leads/${idLead}`);
     }
     getByPais(idPais) {
-        return this._http.get(`${this.url}leads/byPais/`, idPais);
+        return this._http.get(`${this.url}leads/byPais/${idPais}`);
     }
     getBySucursal(idSucursal) {
-        return this._http.get(`${this.url}leads/bySucursal/`, idSucursal);
+        return this._http.get(`${this.url}leads/bySucursal/${idSucursal}`);
     }
     getByMes(mes) {
-        return this._http.get(`${this.url}leads/byMes/`, mes);
+        return this._http.get(`${this.url}leads/byMes/${mes}`);
     }
     getByAnio(anio) {
-        return this._http.get(`${this.url}leads/byAnio/`, anio);
+        return this._http.get(`${this.url}leads/byAnio/$`);
     }
 }

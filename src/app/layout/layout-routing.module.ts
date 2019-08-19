@@ -10,6 +10,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
             { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsModule) },
+            { path: 'mkt', loadChildren: () => import('./mkt/mkt.module').then(m => m.MktModule) },
             { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
             { path: 'forms', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
             { path: 'bs-element', loadChildren: () => import('./bs-element/bs-element.module').then(m => m.BsElementModule) },

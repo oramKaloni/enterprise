@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
 import { NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -11,6 +12,8 @@ import {
 } from './components';
 import { StatModule } from '../../shared';
 import { MapsComponent } from './components/maps/maps.component';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
     imports: [
@@ -18,7 +21,10 @@ import { MapsComponent } from './components/maps/maps.component';
         NgbCarouselModule,
         NgbAlertModule,
         DashboardRoutingModule,
-        StatModule
+        StatModule,
+        TableModule,
+        ButtonModule,
+        DialogModule
     ],
     declarations: [
         DashboardComponent,
