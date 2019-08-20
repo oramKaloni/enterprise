@@ -35,7 +35,6 @@ export class SidebarComponent implements OnInit {
         this.mktMenu = '';
         this.pushRightClass = 'push-right';
         this.usuario = this._funtionsGlobales.getLocal('usuario');
-        console.log(this.usuario);
     }
 
     eventCalled() {

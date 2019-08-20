@@ -6,6 +6,8 @@ import { FuntionsGLobales } from '../../shared/services/funtionsGlobales';
 import { LeadNetsuiteService } from '../../shared/services/leadNetsuiteService.service';
 import { LeadNetsuite } from '../../shared/models/leadNetsuite';
 import { VentasService } from '../../shared/services/ventasService.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'app-mkt',
@@ -69,43 +71,19 @@ export class MktComponent implements OnInit {
     public numbers2P = [];
     public numbers3P = [];
     public numbers4P = [];
+    public fecha: any;
+    public mesCurso: any;
+    public totalMesH = 0;
+    public totalMesP = 0;
+    public totalMesM = 0;
+    public pais: any = 'Mx';
 
     public mx: string;
-
-    // bar chart
-    public barChartOptions: any = {
-        scaleShowVerticalLines: false,
-        responsive: true
-    };
-    public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType: string;
-    public barChartLegend: boolean;
-
-    public barChartData: any[] = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-    ];
-
-    // Doughnut
-
     // FF6384   36A2EB   FFCE56   18c73f
-
-    public doughnutChartLabels: string[] = ['2016', '2017', '2018', '2019'];
     public doughnutChartData: any;
-    public doughnutChartType: string;
-
-    public datahairbyYearLabels: string[] = ['2016', '2017', '2018', '2019'];
     public datahairbyYear: any;
-    public datahairbyYearType: string;
-
-    public dataMedicalbyYearLabels: string[] = ['2016', '2017', '2018', '2019'];
     public dataMedicalbyYear: any;
-    public dataMedicalbyYearType: string;
-
-    public dataProductobyYearLabels: string[] = ['2016', '2017', '2018', '2019'];
-    public dataProductobyYear:  any;
-    public dataProductobyYearType: string;
-    public data: any;
+    public dataProductobyYear: any;
     // events
     public chartClicked(e: any): void {
         // console.log(e);
@@ -115,41 +93,19 @@ export class MktComponent implements OnInit {
         // console.log(e);
     }
 
-    public randomize(): void {
-        // Only Change 3 values
-        const data = [Math.round(Math.random() * 100), 59, 80, Math.random() * 100, 56, Math.random() * 100, 40];
-        const clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
-        this.barChartData = clone;
-        /**
-         * (My guess), for Angular to recognize the change in the dataset
-         * it has to change the dataset variable directly,
-         * so one way around it, is to clone the data, change it and then
-         * assign it;
-         */
-    }
-
     constructor(
         private _funtionsGlobales: FuntionsGLobales,
         private _leadService: LeadService,
         private _leadNetsuiteService: LeadNetsuiteService,
         private _ventas: VentasService
     ) {
-        this.data = {
-            labels: ['A', 'B', 'C', 'D'],
-            datasets: [
-                {
-                    data: [300, 50, 100, 400],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f'],
-                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f']
-                }
-            ]
-        };
+        this.fecha = new Date();
+        this.mesCurso = this.fecha.getMonth() + 1;
         this.doughnutChartData = {
-            labels: ['a', 'a', 'a', 'a'],
+            labels: ['2016', '2017', '2018', '2019'],
             datasets: [
                 {
-                    data: [1, 2, 30, 43],
+                    data: [0, 0, 0, 0],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f'],
                     hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f']
                 }
@@ -157,28 +113,25 @@ export class MktComponent implements OnInit {
         };
 
         this.dataProductobyYear = {
-            labels: ['a', 'a', 'a', 'a'],
+            labels: ['2016', '2017', '2018', '2019'],
             datasets: [
                 {
-                    data: [1, 2, 30, 43],
+                    data: [0, 0, 0, 0],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f'],
                     hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f']
                 }
             ]
         };
         this.dataMedicalbyYear = {
-            labels: ['a', 'a', 'a', 'a'],
+            labels: ['2016', '2017', '2018', '2019'],
             datasets: [
                 {
-                    data: [1, 2, 30, 43],
+                    data: [0, 0, 0, 0],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f'],
                     hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#18c73f']
                 }
             ]
         };
-
-
-
 
         this.optionsH = {
             title: {
@@ -212,79 +165,116 @@ export class MktComponent implements OnInit {
         };
     }
 
-    ngOnInit() {
+    ngOnInit() {}
+    showDialog() {
+        this.display = true;
+    }
 
-        // this.dataProductobyYearType = 'doughnut';
-        this._ventas.getVentas().subscribe(res => {
+    selectPais(form) {
+        const country: any = document.getElementById('pais').value;
+        const ps = country;
+        this.data16 = 0;
+        this.data17 = 0;
+        this.data18 = 0;
+        this.data19 = 0;
+
+        this.totalHair16 = 0;
+        this.totalHair17 = 0;
+        this.totalHair18 = 0;
+        this.totalHair19 = 0;
+
+        this.totalProducto16 = 0;
+        this.totalProducto17 = 0;
+        this.totalProducto18 = 0;
+        this.totalProducto19 = 0;
+
+        this.totalmedical16 = 0;
+        this.totalmedical17 = 0;
+        this.totalmedical18 = 0;
+        this.totalmedical19 = 0;
+        this.dataHair = null;
+        this.dataProducto = null;
+        this.dataMedical = null;
+
+        if (ps === 'Global') {
+            this._ventas.getVentas().subscribe(res => {
+                console.log(res);
+            });
+        }
+
+        this._ventas.getVentasPais(country).subscribe(res => {
             for (let i = 0; i < res.length; i++) {
                 if (res[i].tipo === 'hair') {
                     if (res[i].anio === 2016) {
                         this.numbersH.push(res[i].cantidad);
                         this.totalHair16 = this.totalHair16 + res[i].cantidad;
-                        this.data16 = this.data16 + res[i].cantidad;
                     }
                     if (res[i].anio === 2017) {
                         this.numbers2H.push(res[i].cantidad);
-                        this.data17 = this.data17 + res[i].cantidad;
                         this.totalHair17 = this.totalHair17 + res[i].cantidad;
                     }
                     if (res[i].anio === 2018) {
                         this.numbers3H.push(res[i].cantidad);
-                        this.data18 = this.data18 + res[i].cantidad;
                         this.totalHair18 = this.totalHair18 + res[i].cantidad;
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalMesH = this.totalMesH + res[i].cantidad;
+                            console.log(this.totalMesH);
+                        }
                     }
                     if (res[i].anio === 2019) {
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalHair19 = this.totalHair19 + res[i].cantidad;
+                        }
                         this.numbers4H.push(res[i].cantidad);
-                        this.data19 = this.data19 + res[i].cantidad;
-                        this.totalHair19 = this.totalHair19 + res[i].cantidad;
+
                     }
                 }
                 if (res[i].tipo === 'medical') {
                     if (res[i].anio === 2016) {
                         this.numbersM.push(res[i].cantidad);
-                        this.data16 = this.data16 + res[i].cantidad;
                         this.totalmedical16 = this.totalmedical16 + res[i].cantidad;
                     }
                     if (res[i].anio === 2017) {
                         this.numbers2M.push(res[i].cantidad);
-                        this.data17 = this.data17 + res[i].cantidad;
                         this.totalmedical17 = this.totalmedical17 + res[i].cantidad;
                     }
                     if (res[i].anio === 2018) {
                         this.numbers3M.push(res[i].cantidad);
-                        this.data18 = this.data18 + res[i].cantidad;
                         this.totalmedical18 = this.totalmedical18 + res[i].cantidad;
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalMesM = this.totalMesM + res[i].cantidad;
+                        }
                     }
                     if (res[i].anio === 2019) {
                         this.numbers4M.push(res[i].cantidad);
-                        this.data19 = this.data19 + res[i].cantidad;
-                        this.totalmedical19 = this.totalmedical19 + res[i].cantidad;
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalmedical19 = this.totalmedical19 + res[i].cantidad;
+                        }
+
                     }
                 }
                 if (res[i].tipo === 'producto') {
                     if (res[i].anio === 2016) {
                         this.numbersP.push(res[i].cantidad);
-                        this.data16 = this.data16 + res[i].cantidad;
-                        // this.doughnutChartData.push(this.data16);
                         this.totalProducto16 = this.totalProducto16 + res[i].cantidad;
                     }
                     if (res[i].anio === 2017) {
                         this.numbers2P.push(res[i].cantidad);
-                        this.data17 = this.data17 + res[i].cantidad;
-                        // this.doughnutChartData.push(this.data17);
                         this.totalProducto17 = this.totalProducto17 + res[i].cantidad;
                     }
                     if (res[i].anio === 2018) {
                         this.numbers3P.push(res[i].cantidad);
-                        this.data18 = this.data18 + res[i].cantidad;
-                        // this.doughnutChartData.push(this.data18);
                         this.totalProducto18 = this.totalProducto18 + res[i].cantidad;
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalMesP = this.totalMesP + res[i].cantidad;
+                        }
                     }
                     if (res[i].anio === 2019) {
                         this.numbers4P.push(res[i].cantidad);
-                        this.data19 = this.data19 + res[i].cantidad;
-                        // this.doughnutChartData.push(this.data19);
-                        this.totalProducto19 = this.totalProducto19 + res[i].cantidad;
+                        if (res[i].mes <= this.mesCurso) {
+                            this.totalProducto19 = this.totalProducto19 + res[i].cantidad;
+                        }
+
                     }
                 }
             }
@@ -297,6 +287,7 @@ export class MktComponent implements OnInit {
                     'Abril',
                     'Mayo',
                     'Junio',
+                    'Julio',
                     'Agosto',
                     'Septiembre',
                     'Octubre',
@@ -330,6 +321,7 @@ export class MktComponent implements OnInit {
                 backgroundColor: 'rgba(0, 0, 0, 0.01)',
                 borderColor: '#18c73f'
             });
+
             this.dataProducto = {
                 labels: [
                     'Enero',
@@ -338,6 +330,7 @@ export class MktComponent implements OnInit {
                     'Abril',
                     'Mayo',
                     'Junio',
+                    'Julio',
                     'Agosto',
                     'Septiembre',
                     'Octubre',
@@ -371,6 +364,7 @@ export class MktComponent implements OnInit {
                 backgroundColor: 'rgba(0, 0, 0, 0.01)',
                 borderColor: '#18c73f'
             });
+
             this.dataMedical = {
                 labels: [
                     'Enero',
@@ -379,6 +373,7 @@ export class MktComponent implements OnInit {
                     'Abril',
                     'Mayo',
                     'Junio',
+                    'Julio',
                     'Agosto',
                     'Septiembre',
                     'Octubre',
@@ -414,7 +409,10 @@ export class MktComponent implements OnInit {
                 borderColor: '#18c73f'
             });
 
-            // this.doughnutChartLabels = ['2016', '2017', '2018', '2019'];
+            this.data16 = this.totalHair16 + this.totalmedical16 + this.totalProducto16;
+            this.data17 = this.totalHair17 + this.totalmedical17 + this.totalProducto17;
+            this.data18 = this.totalHair18 + this.totalmedical18 + this.totalProducto18;
+            this.data19 = this.totalHair19 + this.totalmedical19 + this.totalProducto19;
 
             this.doughnutChartData = {
                 labels: ['2016', '2017', '2018', '2019'],
@@ -426,9 +424,6 @@ export class MktComponent implements OnInit {
                     }
                 ]
             };
-
-            // this.doughnutChartData = [this.data16, this.data17, this.data18, this.data19];
-            // this.datahairbyYear = [this.totalHair16, this.totalHair17, this.totalHair18, this.totalHair19];]
             this.datahairbyYear = {
                 labels: ['2016', '2017', '2018', '2019'],
                 datasets: [
@@ -439,8 +434,6 @@ export class MktComponent implements OnInit {
                     }
                 ]
             };
-
-
             this.dataMedicalbyYear = {
                 labels: ['2016', '2017', '2018', '2019'],
                 datasets: [
@@ -452,9 +445,6 @@ export class MktComponent implements OnInit {
                 ]
             };
 
-
-
-
             this.dataProductobyYear = {
                 labels: ['2016', '2017', '2018', '2019'],
                 datasets: [
@@ -465,11 +455,20 @@ export class MktComponent implements OnInit {
                     }
                 ]
             };
+            this.numbersH = [];
+            this.numbers2H = [];
+            this.numbers3H = [];
+            this.numbers4H = [];
+            this.numbersP = [];
+            this.numbers2P = [];
+            this.numbers3P = [];
+            this.numbers4P = [];
+            this.numbersM = [];
+            this.numbers2M = [];
+            this.numbers3M = [];
+            this.numbers4M = [];
         });
-        // this.actualizarLeads() ;
     }
-    showDialog() {
-        this.display = true;
-    }
+
     actualizarLeads() {}
 }

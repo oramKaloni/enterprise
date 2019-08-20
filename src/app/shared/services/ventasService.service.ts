@@ -17,5 +17,8 @@ export class VentasService {
     getVentas() {
         return this._http.get(`${this.url}ventas/`);
     }
+    getVentasPais(pais) {
+        return this._http.get(`${this.url}ventas/${pais}`);
+    }
 
 }
