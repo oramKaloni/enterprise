@@ -8,10 +8,43 @@
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Charts' | translate }}</span>
         </a> -->
-        <a [routerLink]="['/mkt']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Ventas' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/mkt']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-money"></i>&nbsp;
+                            <span>{{ 'Ventas/reales' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/ventas-campana']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-money"></i>&nbsp;
+                            <span>{{ 'Ventas/campaña' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/compare']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-money"></i>&nbsp;
+                            <i class="fa fa-chart-bar"></i>
+                            <span>{{ 'Comparacion' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <!-- <a [routerLink]="['/mkt']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-money"></i>&nbsp;
-            <span>{{ 'Sales' | translate }}</span>
+            <span>{{ 'Ventas' | translate }}</span>
         </a>
+        <a [routerLink]="['/ventas-campana']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-money"></i>&nbsp;
+            <span>{{ 'Ventas por campaña' | translate }}</span>
+        </a> -->
         <!-- <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>

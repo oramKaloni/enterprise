@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Sales'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <app-page-header [heading]="'Ventas Reales'" [icon]="'fa-bar-chart-o'"></app-page-header>
 
     <!-- <div class="row">
         <div class="col-12">
@@ -16,14 +16,14 @@
         <div class="col-6" style="text-align: center; margin-bottom: 20px;">
             <div class="col-12" style="align-content: center">
                 <div class="col-3"></div>
-                <form form #paisForm="ngForm" (ngSubmit)="selectPais(paisForm.value)">
+                <form #paisForm="ngForm" (ngSubmit)="selectPais(filtro)">
                     <div class="form-content ">
                         <div class="col-6" style="margin-left: auto; margin-right: auto">
                             <label for="pais">Pais</label>
 
-                            <select class="form-control input-underline input-lg" id="pais" name="pais">
+                            <select class="form-control input-underline input-lg" name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro.pais" (ngModelChange)="selectPais(filtro)">
                                 <!-- <option value="Global">Global</option> -->
-                                <option value="Mx">Mexico</option>
+                                <option value="Mx" selected >Mexico</option>
                                 <option value="Co">Colombia</option>
                                 <option value="Br">Brasil</option>
                                 <option value="Us">Dallas</option>
@@ -35,7 +35,7 @@
                     <!-- <a class="btn rounded-btn " [routerLink]="[ '/dashboard'] " (click)="onLoggedin() ">{{ 'Log in' | translate }}</a>
                         &nbsp;
                         <a class="btn rounded-btn " [routerLink]="[ '/signup'] ">{{ 'Register' | translate }}</a> -->
-                    <button pButton type="submit" label="Ingresar" style="margin-top: 20px"></button>
+                    <!-- <button pButton type="submit" label="Ingresar" style="margin-top: 20px"></button> -->
 
                 </form>
 
@@ -63,10 +63,10 @@
                         </th>
                         <th>
                             <div *ngIf="((data19 - data18) / data18) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
-                                <i class="fa fa-arrow-up"></i> {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
+                                <i class="fa fa-arrow-up"></i> % {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
                             </div>
                             <div *ngIf="((data19 - data18) / data18) * 100 < 0" style="color:red;font-size: 13px; text-align: right">
-                                <i class="fa fa-arrow-down"></i> {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
+                                <i class="fa fa-arrow-down"></i> % {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
                             </div>
                         </th>
                     </tr>
@@ -76,7 +76,7 @@
                         </th>
                         <th>
                             <div *ngIf="((data18 - data17) / data17) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
-                                <i class="fa fa-arrow-up"></i> {{ ((data18 - data17) / data17) * 100 | number: '2.1-2' }}
+                                <i class="fa fa-arrow-up"></i> % {{ ((data18 - data17) / data17) * 100 | number: '2.1-2' }}
                             </div>
                         </th>
                     </tr>
@@ -84,7 +84,7 @@
                         <th><b style="color:#36A2EB ; ">2017</b> $ {{ data17 | number: '3.1-1' }}</th>
                         <th>
                             <div *ngIf="((data17 - data16) / data16) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
-                                <i class="fa fa-arrow-up"></i> {{ ((data17 - data16) / data16) * 100 | number: '2.1-2' }}
+                                <i class="fa fa-arrow-up"></i> % {{ ((data17 - data16) / data16) * 100 | number: '2.1-2' }}
                             </div>
                         </th>
                     </tr>
@@ -112,10 +112,10 @@
                                 <th><b style="color:#18c73f ; ">2019</b> $ {{ totalHair19 | number: '3.1-1' }}</th>
                                 <th>
                                     <div *ngIf="((totalHair19 - totalMesH) / totalMesH) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalHair19 - totalMesH) / totalMesH) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalHair19 - totalMesH) / totalMesH) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalHair19 - totalMesH) / totalMesH) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalHair19 - totalMesH) / totalMesH) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalHair19 - totalMesH) / totalMesH) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -123,7 +123,7 @@
                                 <th><b style="color:#FFCE56;   ">2018 </b>$ {{ totalHair18 | number: '3.1-1' }}</th>
                                 <th>
                                     <div *ngIf="((totalHair18 - totalHair17) / totalHair17) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalHair18 - totalHair17) / totalHair17) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalHair18 - totalHair17) / totalHair17) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -131,7 +131,7 @@
                                 <th><b style="color:#36A2EB ;   ">2017 </b>$ {{ totalHair17 | number: '3.1-1' }}</th>
                                 <th>
                                     <div *ngIf="((totalHair17 - totalHair16) / totalHair16) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalHair17 - totalHair16) / totalHair16) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalHair17 - totalHair16) / totalHair16) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -162,10 +162,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalProducto19 - totalMesP) / totalMesP) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalProducto19 - totalMesP) / totalMesP) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalProducto19 - totalMesP) / totalMesP) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalProducto19 - totalMesP) / totalMesP) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalProducto19 - totalMesP) / totalMesP) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalProducto19 - totalMesP) / totalMesP) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -175,10 +175,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalProducto18 - totalProducto17) / totalProducto17) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalProducto18 - totalProducto17) / totalProducto17) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalProducto18 - totalProducto17) / totalProducto17) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalProducto18 - totalProducto17) / totalProducto17) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalProducto18 - totalProducto17) / totalProducto17) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalProducto18 - totalProducto17) / totalProducto17) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -188,10 +188,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalProducto17 - totalProducto16) / totalProducto16) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalProducto17 - totalProducto16) / totalProducto16) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalProducto17 - totalProducto16) / totalProducto16) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalProducto17 - totalProducto16) / totalProducto16) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalProducto17 - totalProducto16) / totalProducto16) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalProducto17 - totalProducto16) / totalProducto16) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -225,10 +225,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalmedical19 - totalMesM) / totalMesM) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalmedical19 - totalMesM) / totalMesM) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalmedical19 - totalMesM) / totalMesM) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalmedical19 - totalMesM) / totalMesM) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalmedical19 - totalMesM) / totalMesM) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalmedical19 - totalMesM) / totalMesM) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -238,10 +238,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalmedical18 - totalmedical17) / totalmedical17) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalmedical18 - totalmedical17) / totalmedical17) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalmedical18 - totalmedical17) / totalmedical17) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalmedical18 - totalmedical17) / totalmedical17) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalmedical18 - totalmedical17) / totalmedical17) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalmedical18 - totalmedical17) / totalmedical17) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>
@@ -251,10 +251,10 @@
                                 </th>
                                 <th>
                                     <div *ngIf="((totalmedical17 - totalmedical16) / totalmedical16) * 100 > 0" style="color:green;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-up"></i> {{ ((totalmedical17 - totalmedical16) / totalmedical16) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-up"></i> % {{ ((totalmedical17 - totalmedical16) / totalmedical16) * 100 | number: '2.1-2' }}
                                     </div>
                                     <div *ngIf="((totalmedical17 - totalmedical16) / totalmedical16) * 100 < 0" style="color:red;font-size: 13px; text-align: center">
-                                        <i class="fa fa-arrow-down"></i> {{ ((totalmedical17 - totalmedical16) / totalmedical16) * 100 | number: '2.1-2' }}
+                                        <i class="fa fa-arrow-down"></i> % {{ ((totalmedical17 - totalmedical16) / totalmedical16) * 100 | number: '2.1-2' }}
                                     </div>
                                 </th>
                             </tr>

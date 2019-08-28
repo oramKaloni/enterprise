@@ -1,0 +1,448 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Ventas Campaña'" [icon]="'fa-bar-chart-o'"></app-page-header>
+
+    <!-- <div class="row">
+        <div class="col-12">
+            <p-dialog header="Title" [(visible)]="display">
+                Content
+            </p-dialog>
+
+            <button type="button" (click)="actualizarLeads()" pButton icon="pi pi-info-circle" label="Show"></button>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6" style="text-align: center; margin-bottom: 20px;">
+            <div class="col-12" style="align-content: center">
+                <div class="col-3"></div>
+                <form form #paisForm="ngForm" (ngSubmit)="selectPais(filtro)">
+                    <div class="form-content ">
+                        <div class="col-md-4 col-xs-12" style="margin-left: auto; margin-right: auto; float: left;">
+                            <label for="pais">Pais</label>
+                            <select class="form-control input-underline input-lg" name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro.pais" (ngModelChange)="selectPais(filtro)">
+                                <!-- <option value="Global">Global</option> -->
+                                <option value="Mx" selected>Mexico</option>
+                                <option value="Co">Colombia</option>
+                                <option value="Br">Brasil</option>
+                                <option value="Us">Dallas</option>
+                                <option value="Es">España</option>
+                                <option value="Do">Dominicana</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <a class="btn rounded-btn " [routerLink]="[ '/dashboard'] " (click)="onLoggedin() ">{{ 'Log in' | translate }}</a>
+                        &nbsp;
+                        <a class="btn rounded-btn " [routerLink]="[ '/signup'] ">{{ 'Register' | translate }}</a> -->
+                    <!-- <button pButton type="submit" label="Ingresar" style="margin-top: 20px"></button> -->
+                </form>
+
+                <div class="col-3"></div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-12" *ngIf="anioCurso === 2020">
+            <div class="col-md-6 col-xs-12" style="float: left">
+                <div class="card-header">Ventas por campaña 2020</div>
+                <div class="card-body">
+                    <p-chart type="doughnut" [data]="data3"></p-chart>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12" style="float: left">
+                <div class="card-header">Datos</div>
+                <div class="card-body">
+                    <table style="text-align: left;  font-size: 20px">
+                        <tr>
+                            <th>
+                                <b style="color:#FF6384 ; font-size: 20px; ">Facebook </b>
+                            </th>
+                            <th style="text-align: right">$ {{ thf3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#36A2EB ; font-size: 20px; ">Google </b>
+                            </th>
+                            <th style="text-align: right">$ {{ thg3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#FFCE56 ; font-size: 20px; ">OFF-LINE </b>
+                            </th>
+                            <th style="text-align: right">$ {{ tho3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#18c73f ; font-size: 20px; ">Migrados </b>
+                            </th>
+                            <th style="text-align: right">$ {{ thm3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#6610f2 ; font-size: 20px; ">Afiliados </b>
+                            </th>
+                            <th style="text-align: right">$ {{ tha3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#fd7e14 ; font-size: 20px; ">Intercambios </b>
+                            </th>
+                            <th style="text-align: right">$ {{ thi3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <b style="color:#20c997 ; font-size: 20px; ">Interna </b>
+                            </th>
+                            <th style="text-align: right">$ {{ thn3 }}</th>
+                            <th>
+                                <div style="color:green;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                                <div style="color:red;font-size: 13px; text-align: right">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="col-md-6 col-xs-12" style="float: left">
+                <p-chart type="line" height="380px" [data]="data2019V" [options]="options2019"></p-chart>
+            </div>
+            <div class="col-md-6 col-xs-12" style="float: left">
+                <div class="col-md-12 col-xs-12" style="float: left">
+                    <div class="card-header">Ventas por campaña 2019</div>
+                    <div class="card-body">
+                        <p-chart type="doughnut" [data]="data2"></p-chart>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12" style="float: left">
+                    <div class="card-header">Datos</div>
+                    <div class="card-body">
+                        <table style="text-align: left;  font-size: 20px">
+                            <tr>
+                                <th>
+                                    <b style="color:#FF6384 ; font-size: 20px; ">Facebook </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thf2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="thf2 > thf">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((thf2 - thfma) / thfma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="thf2 < thf">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((thf2 - thfma) / thfma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#36A2EB ; font-size: 20px; ">Google </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thg2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="thg2 > thg">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((thg2 - thgma) / thgma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="thg2 < thg">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((thg2 - thgma) / thgma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#FFCE56 ; font-size: 20px; ">OFF-LINE </b>
+                                </th>
+                                <th style="text-align: right">$ {{ tho2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="tho2 > tho">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((tho2 - thoma) / thoma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="tho2 < tho">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((tho2 - thoma) / thoma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#18c73f ; font-size: 20px; ">Migrados </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thm2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="thm2 > thm">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((thm2 - thmma) / thmma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="thm2 < thm">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((thm2 - thmma) / thmma) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#6610f2 ; font-size: 20px; ">Afiliados </b>
+                                </th>
+                                <th style="text-align: right">$ {{ tha2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="tha2 > tha">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((tha2 - thama) / thama) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="tha2 < tha">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((tha2 - thama) / thama) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#fd7e14 ; font-size: 20px; ">Intercambios </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thi2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="thi2 > thi">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((thi2 - thima) / thima) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="thi2 < thi">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((thi2 - thima) / thima) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#20c997 ; font-size: 20px; ">Interna </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thn2 }}</th>
+                                <th>
+                                    <div style="color:green;font-size: 13px; text-align: right" *ngIf="thn2 > thn">
+                                        <i class="fa fa-arrow-up"></i> % {{ ((thn2 - thnma) / thima) * 100 | number: '2.1-2' }}
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right" *ngIf="thn2 < thn">
+                                        <i class="fa fa-arrow-down"></i> % {{ ((thn2 - thnma) / thima) * 100 | number: '2.1-2' }}
+                                    </div>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="col-md-6 col-xs-12" style="float: left">
+                <p-chart type="line" height="380px" [data]="data2018V" [options]="options2018"></p-chart>
+            </div>
+            <div class="col-md-6 col-xs-12" style="float: left">
+                <div class="col-md-12 col-xs-12" style="float: left">
+                    <div class="card-header">Ventas por campaña 2018</div>
+                    <div class="card-body">
+                        <p-chart type="doughnut" [data]="data"></p-chart>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12" style="float: left">
+                    <div class="card-header">Datos</div>
+                    <div class="card-body">
+                        <table style="text-align: left;  font-size: 20px">
+                            <tr>
+                                <th>
+                                    <b style="color:#FF6384 ; font-size: 20px; ">Facebook </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thf }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#36A2EB ; font-size: 20px; ">Google </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thg }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#FFCE56 ; font-size: 20px; ">OFF-LINE </b>
+                                </th>
+                                <th style="text-align: right">$ {{ tho }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#18c73f ; font-size: 20px; ">Migrados </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thm }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#6610f2 ; font-size: 20px; ">Afiliados </b>
+                                </th>
+                                <th style="text-align: right">$ {{ tha }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#fd7e14 ; font-size: 20px; ">Intercambios </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thi }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <b style="color:#20c997 ; font-size: 20px; ">Interna </b>
+                                </th>
+                                <th style="text-align: right">$ {{ thn }}</th>
+                                <th>
+                                    <!-- <div style="color:green;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                    <div style="color:red;font-size: 13px; text-align: right">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </div> -->
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-8 col-xs-12" style="float: left">
+            <div class="card-header">Ventas totales por Año</div>
+            <div class="card-body">
+                <p-chart type="doughnut" [data]="doughnutChartData"></p-chart>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="card-header">Totales</div>
+            <div class="card-body">
+                <table style="text-align: left;  font-size: 20px">
+                    <tr>
+                        <th>
+                            <b style="color:#18c73f ; font-size: 20px; ">2019</b> $ {{ data19 | number: '3.1-1' }}
+                        </th>
+                        <th>
+                            <div *ngIf="((data19 - data18) / data18) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
+                                <i class="fa fa-arrow-up"></i> {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
+                            </div>
+                            <div *ngIf="((data19 - data18) / data18) * 100 < 0" style="color:red;font-size: 13px; text-align: right">
+                                <i class="fa fa-arrow-down"></i> {{ ((data19 - data18) / data18) * 100 | number: '2.1-2' }}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b style="color:#FFCE56; font-size: 20px;  ">2018</b> $ {{ data18 | number: '3.1-1' }}
+                        </th>
+                        <th>
+                            <div *ngIf="((data18 - data17) / data17) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
+                                <i class="fa fa-arrow-up"></i> {{ ((data18 - data17) / data17) * 100 | number: '2.1-2' }}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th><b style="color:#36A2EB ; ">2017</b> $ {{ data17 | number: '3.1-1' }}</th>
+                        <th>
+                            <div *ngIf="((data17 - data16) / data16) * 100 > 0" style="color:green;font-size: 13px; text-align: right">
+                                <i class="fa fa-arrow-up"></i> {{ ((data17 - data16) / data16) * 100 | number: '2.1-2' }}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style=" font-size: 20px"><b style="color:#FF6384 ; "> 2016</b> $ {{ data16 | number: '3.1-1' }}</th>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
+    </div> -->
+</div>

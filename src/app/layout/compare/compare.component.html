@@ -1,0 +1,560 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Comparación'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <div class="row" *ngIf="filtro1.activo && filtro2.activo">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Selecciona
+                </div>
+
+                <div class="card-body">
+                    <form form #paisForm="ngForm" (ngSubmit)="compare(filtro1, filtro2)">
+                        <div class="row align-content-center" style="text-align: center">
+                            <div class="col-sm-4">&nbsp;</div>
+                            <div class="col-sm-4">
+                                <label for="tipo">Tipo de consulta</label>
+                                <select class="form-control input-underline " name="tipo" id="tipo" #tipo="ngModel" [(ngModel)]="filtro1.tipo" (ngModelChange)="lipiarVariables()">
+                                    <!-- <option value="Global">Global</option> -->
+                                    <option value="real" selected>Venta Real Unitaria </option>
+                                    <option value="real3meses" selected>Venta Real Este mes, el mes pasado y este mes hace un año</option>
+                                    <option value="ultimo3mestre" selected>Venta Real ultimo trimestre</option>
+                                    <option value="campana">Campaña</option>
+                                    <!-- <option value="medio">Medios</option> -->
+                                </select>
+                            </div>
+                            <div class="col-sm-4">&nbsp;</div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-xs-12" style="float: left" *ngIf="filtro1.tipo === 'real3meses'">
+                            <div class="col-4" style="float: left"></div>
+                            <div class="col-4" style="float: left"></div>
+                            <div class="col-4" style="float: left"></div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-xs-12" style="float: left" *ngIf="filtro1.tipo === 'ultimo3mestre'">
+                            <div class="col-4" style="float: left"></div>
+                            <div class="col-4" style="float: left"></div>
+                            <div class="col-4" style="float: left"></div>
+                        </div>
+
+                        <div class="form-content " *ngIf="filtro1.tipo === 'real'">
+                            <div class="col-lg-6 col-md-6 col-xs-12" style="float: left">
+                                <div class="col-6" style="float: left">
+                                    <label for="pais">Pais</label>
+                                    <select class="form-control input-underline " name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro1.pais">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="Mx" selected>Mexico</option>
+                                        <option value="Co">Colombia</option>
+                                        <option value="Br">Brasil</option>
+                                        <option value="Us">Dallas</option>
+                                        <option value="Es">España</option>
+                                        <option value="Do">Dominicana</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left">
+                                    <label for="anio">Año</label>
+                                    <select class="form-control input-underline " name="anio" id="anio" #anio="ngModel" [(ngModel)]="filtro1.anio">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left">
+                                    <label for="mes">Mes</label>
+                                    <select class="form-control input-underline " name="mes" id="mes" #mes="ngModel" [(ngModel)]="filtro1.mes">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left" *ngIf="filtro1.tipo === 'campana'">
+                                    <label for="campana">Campaña</label>
+                                    <select class="form-control input-underline " name="campana" id="campana" #campana="ngModel" [(ngModel)]="filtro1.campana">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left" *ngIf="filtro1.tipo === 'campana'">
+                                    <label for="medio">Medio</label>
+                                    <select class="form-control input-underline " name="medio" id="medio" #medio="ngModel" [(ngModel)]="filtro1.medio">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xs-12" style="float: right">
+                                <div class="col-6" style="float: left">
+                                    <label for="pais">Pais</label>
+                                    <select class="form-control input-underline " name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro2.pais">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="Mx" selected>Mexico</option>
+                                        <option value="Co">Colombia</option>
+                                        <option value="Br">Brasil</option>
+                                        <option value="Us">Dallas</option>
+                                        <option value="Es">España</option>
+                                        <option value="Do">Dominicana</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left">
+                                    <label for="anio">Año</label>
+                                    <select class="form-control input-underline " name="anio" id="anio" #anio="ngModel" [(ngModel)]="filtro2.anio">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left">
+                                    <label for="mes">Mes</label>
+                                    <select class="form-control input-underline " name="mes" id="mes" #mes="ngModel" [(ngModel)]="filtro2.mes">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left" *ngIf="filtro1.tipo === 'campana'">
+                                    <label for="campana">Campaña</label>
+                                    <select class="form-control input-underline " name="campana" id="campana" #campana="ngModel" [(ngModel)]="filtro2.campana">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div class="col-6" style="float: left" *ngIf="filtro1.tipo === 'campana'">
+                                    <label for="medio">Medio</label>
+                                    <select class="form-control input-underline " name="medio" id="medio" #medio="ngModel" [(ngModel)]="filtro2.medio">
+                                        <!-- <option value="Global">Global</option> -->
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Febrero</option>
+                                        <option value="4">Febrero</option>
+                                        <option value="5">Febrero</option>
+                                        <option value="6">Febrero</option>
+                                        <option value="7">Febrero</option>
+                                        <option value="8">Febrero</option>
+                                        <option value="9">Febrero</option>
+                                        <option value="10">Febrero</option>
+                                        <option value="11">Febrero</option>
+                                        <option value="12">Febrero</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-content " *ngIf="filtro1.tipo === 'real3meses'">
+                            <div class="card-body">
+                                <div class="row" style="text-align: center">
+                                    <div class="col-3"></div>
+                                    <div class="col-6" style="margin-bottom: 20px;">
+                                        <label for="pais">Pais</label>
+                                        <select class="form-control input-underline " name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro1.pais" (ngModelChange)="real3meses(filtro1.pais)">
+                                                <!-- <option value="Global">Global</option> -->
+                                                <option value="Mx" selected>Mexico</option>
+                                                <option value="Co">Colombia</option>
+                                                <option value="Br">Brasil</option>
+                                                <option value="Us">Dallas</option>
+                                                <option value="Es">España</option>
+                                                <option value="Do">Dominicana</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+
+                                <hr>
+                                <div class="row" *ngIf="filtro1.pais">
+
+                                    <div class="col-md-6 col-sm-12" style="float:left; text-align: center;margin-bottom: 20px;">
+                                        <h1>Comparación</h1>
+                                        <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+                                        <p-chart type="line" [data]="real3m" (onDataSelect)="selectData($event)"></p-chart>
+                                        <table style="text-align: center; margin-left: auto;margin-right: auto; width: 100%;margin-top: 50px ">
+                                            <tr>
+                                                <th>Mes</th>
+                                                <th>Hair</th>
+                                                <th>Medical</th>
+                                                <th>Products</th>
+
+                                            </tr>
+                                            <!-- '#FF6384', '#36A2EB', '#18c73f' -->
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#FF6384 ; color:white; ">{{mes1}} {{anioCurso}}</td>
+                                                <td>
+                                                    $ {{ventasLA}} <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLA - ventasL1A) / ventasL1A) * 100) > 0"> % {{ ((ventasLA - ventasL1A) / ventasL1A) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLA - ventasL1A) / ventasL1A) * 100) < 0"> % {{ ((ventasLA - ventasL1A) / ventasL1A) * 100 | number: '2.1-2' }}</i>
+                                                </td>
+                                                <td>
+                                                    $ {{ventasLB}}<br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLB - ventasL1B) / ventasL1B) * 100) > 0"> % {{ ((ventasLB - ventasL1B) / ventasL1B) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLB - ventasL1B) / ventasL1B) * 100) < 0"> % {{ ((ventasLB - ventasL1B) / ventasL1B) * 100 | number: '2.1-2' }}</i>
+                                                </td>
+
+                                                <td>
+                                                    $ {{ventasLC}}<br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLC - ventasL1C) / ventasL1C) * 100) > 0"> % {{ ((ventasLC - ventasL1C) / ventasL1C) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLC - ventasL1C) / ventasL1C) * 100) < 0"> % {{ ((ventasLC - ventasL1C) / ventasL1C) * 100 | number: '2.1-2' }}</i>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#36A2EB ; color:white; ">{{mes2}} {{anioCurso}}</td>
+                                                <td> $ {{ventasL1A}}
+                                                    <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1A - ventasL2A) / ventasL2A) * 100) > 0"> % {{ ((ventasL1A - ventasL2A) / ventasL2A) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasL1A - ventasL2A) / ventasL2A) * 100) < 0"> % {{ ((ventasL1A - ventasL2A) / ventasL2A) * 100 | number: '2.1-2' }}</i> </td>
+                                                <td> $ {{ventasL1B}} <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1B - ventasL2B) / ventasL2B) * 100) > 0"> % {{ ((ventasL1B - ventasL2B) / ventasL2B) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red " *ngIf="(((ventasL1B - ventasL2B) / ventasL2B) * 100) < 0"> % {{ ((ventasL1B - ventasL2B) / ventasL2B) * 100 | number: '2.1-2' }}</i> </td>
+                                                <td> $ $ {{ventasL1C}}
+                                                    <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1C - ventasL2C) / ventasL2C) * 100) > 0"> % {{ ((ventasL1C - ventasL2C) / ventasL2C) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red " *ngIf="(((ventasL1C - ventasL2C) / ventasL2C) * 100) < 0"> % {{ ((ventasL1C - ventasL2C) / ventasL2C) * 100 | number: '2.1-2' }}</i>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#18c73f ; color:white; ">{{mes1}} {{anioCurso-1}}</td>
+                                                <td> $ {{ventasL2A}}</td>
+                                                <td> $ {{ventasL2B}}</td>
+                                                <td> $ {{ventasL2C}}</td>
+
+                                            </tr>
+                                        </table>
+
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="float:left; text-align: center;margin-bottom: 20px;">
+                                        <h1>{{mes1}} {{anioCurso}}</h1>
+                                        <p-chart type="pie" [data]="pie1"></p-chart>
+                                        <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                            <tr>
+                                                <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                <th style="background:#18c73f ; color:white; ">Products</th>
+                                            </tr>
+                                            <tr>
+                                                <td> $ {{ventasLA}}</td>
+                                                <td> $ {{ventasLB}}</td>
+                                                <td> $ {{ventasLC}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="col-md-6 col-sm-12" style="float:left; text-align: center;margin-bottom: 20px;">
+                                            <h1>{{mes2}} {{anioCurso}} </h1>
+                                            <p-chart type="pie" [data]="pie2"></p-chart>
+                                            <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                                <tr>
+                                                    <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                    <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                    <th style="background:#18c73f ; color:white; ">Products</th>
+                                                </tr>
+                                                <tr>
+                                                    <td> $ {{ventasL1A}}</td>
+                                                    <td> $ {{ventasL1B}}</td>
+                                                    <td> $ {{ventasL1C}}</td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12" style="float:left; text-align: center;margin-bottom: 20px;">
+                                            <h1>{{mes1}} {{anioCurso-1}} </h1>
+                                            <p-chart type="pie" [data]="pie3"></p-chart>
+                                            <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                                <tr>
+                                                    <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                    <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                    <th style="background:#18c73f ; color:white; ">Products</th>
+                                                </tr>
+                                                <tr>
+                                                    <td> $ {{ventasL2A}}</td>
+                                                    <td> $ {{ventasL2B}}</td>
+                                                    <td> $ {{ventasL2C}}</td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-content " *ngIf="filtro1.tipo === 'ultimo3mestre'">
+                            <div class="card-body">
+                                <div class="row" style="text-align: center">
+                                    <div class="col-3"></div>
+
+                                    <div class="col-6" style="margin-bottom: 30px;">
+                                        <label for="pais1">Pais</label>
+                                        <select class="form-control input-underline " name="pais" id="pais" #pais="ngModel" [(ngModel)]="filtro2.pais" (ngModelChange)="ultimo3mestre(filtro2.pais)">
+                                                <!-- <option value="Global">Global</option> -->
+                                                <option value="Mx" selected>Mexico</option>
+                                                <option value="Co">Colombia</option>
+                                                <option value="Br">Brasil</option>
+                                                <option value="Us">Dallas</option>
+                                                <option value="Es">España</option>
+                                                <option value="Do">Dominicana</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <hr>
+                                <div class="row" style="margin-bottom: 50px !important; ">
+                                    <div class="col-md-6 col-sm-12" style="float:left; text-align: center">
+                                        <h1>Comparación</h1>
+                                        <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+
+                                        <p-chart type="line" [data]="ultimo3" (onDataSelect)="selectData($event)"></p-chart>
+                                        <table style="text-align: center; margin-left: auto;margin-right: auto; width: 100%;margin-top: 50px ">
+                                            <tr>
+                                                <th>Mes</th>
+                                                <th>Hair</th>
+                                                <th>Medical</th>
+                                                <th>Products</th>
+
+                                            </tr>
+                                            <!-- '#FF6384', '#36A2EB', '#18c73f' -->
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#FF6384 ; color:white; ">{{mes1}} {{anioCurso}}</td>
+                                                <td>
+                                                    $ {{ventasLA}} <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLA - ventasL1A) / ventasL1A) * 100) > 0"> % {{ ((ventasLA - ventasL1A) / ventasL1A) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLA - ventasL1A) / ventasL1A) * 100) < 0"> % {{ ((ventasLA - ventasL1A) / ventasL1A) * 100 | number: '2.1-2' }}</i>
+                                                </td>
+                                                <td>
+                                                    $ {{ventasLB}}<br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLB - ventasL1B) / ventasL1B) * 100) > 0"> % {{ ((ventasLB - ventasL1B) / ventasL1B) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLB - ventasL1B) / ventasL1B) * 100) < 0"> % {{ ((ventasLB - ventasL1B) / ventasL1B) * 100 | number: '2.1-2' }}</i>
+                                                </td>
+
+                                                <td>
+                                                    $ {{ventasLC}}<br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasLC - ventasL1C) / ventasL1C) * 100) > 0"> % {{ ((ventasLC - ventasL1C) / ventasL1C) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasLC - ventasL1C) / ventasL1C) * 100) < 0"> % {{ ((ventasLC - ventasL1C) / ventasL1C) * 100 | number: '2.1-2' }}</i>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#36A2EB ; color:white; ">{{mes2}} {{anioCurso}}</td>
+                                                <td> $ {{ventasL1A}}
+                                                    <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1A - ventasL2A) / ventasL2A) * 100) > 0"> % {{ ((ventasL1A - ventasL2A) / ventasL2A) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red" *ngIf="(((ventasL1A - ventasL2A) / ventasL2A) * 100) < 0"> % {{ ((ventasL1A - ventasL2A) / ventasL2A) * 100 | number: '2.1-2' }}</i> </td>
+                                                <td> $ {{ventasL1B}} <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1B - ventasL2B) / ventasL2B) * 100) > 0"> % {{ ((ventasL1B - ventasL2B) / ventasL2B) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red " *ngIf="(((ventasL1B - ventasL2B) / ventasL2B) * 100) < 0"> % {{ ((ventasL1B - ventasL2B) / ventasL2B) * 100 | number: '2.1-2' }}</i> </td>
+                                                <td> $ {{ventasL1C}}
+                                                    <br>
+                                                    <i class="fa fa-arrow-up" style="color:green" *ngIf="(((ventasL1C - ventasL2C) / ventasL2C) * 100) > 0"> % {{ ((ventasL1C - ventasL2C) / ventasL2C) * 100 | number: '2.1-2' }}</i>
+                                                    <i class="fa fa-arrow-down" style="color:red " *ngIf="(((ventasL1C - ventasL2C) / ventasL2C) * 100) < 0"> % {{ ((ventasL1C - ventasL2C) / ventasL2C) * 100 | number: '2.1-2' }}</i>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr style=" font-weight: 800; ">
+                                                <td style="background:#18c73f ; color:white; ">{{mes3}} {{anioCurso}}</td>
+                                                <td> $ {{ventasL2A}}</td>
+                                                <td> $ {{ventasL2B}}</td>
+                                                <td> $ {{ventasL2C}}</td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="float:left; text-align: center">
+                                        <h1>{{mes1}} {{anioCurso}}</h1>
+                                        <p-chart type="pie" [data]="pie1"></p-chart>
+                                        <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                            <tr>
+                                                <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                <th style="background:#18c73f ; color:white; ">Products</th>
+                                            </tr>
+                                            <tr>
+                                                <td> $ {{ventasLA}}</td>
+                                                <td> $ {{ventasLB}}</td>
+                                                <td> $ {{ventasLC}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                    <div class="col-12" style="margin-top: 50px !important; ">
+                                        <div class="col-md-6 col-sm-12" style="float:left; text-align: center">
+                                            <h1>{{mes2}} {{anioCurso}}</h1>
+                                            <p-chart type="pie" [data]="pie2"></p-chart>
+                                            <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                                <tr>
+                                                    <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                    <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                    <th style="background:#18c73f ; color:white; ">Products</th>
+                                                </tr>
+                                                <tr>
+                                                    <td> $ {{ventasL1A}}</td>
+                                                    <td> $ {{ventasL1B}}</td>
+                                                    <td> $ {{ventasL1C}}</td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12" style="float:left; text-align: center">
+                                            <h1>{{mes3}} {{anioCurso}}</h1>
+                                            <p-chart type="pie" [data]="pie3"></p-chart>
+                                            <table style=" font-weight: 800; width: 100%; text-align: center; margin-top: 50px ">
+                                                <tr>
+                                                    <th style="background:#FF6384 ; color:white; ">Hair</th>
+                                                    <th style="background:#36A2EB ; color:white; ">Medical</th>
+                                                    <th style="background:#18c73f ; color:white; ">Products</th>
+                                                </tr>
+                                                <tr>
+                                                    <td> $ {{ventasL2A}}</td>
+                                                    <td> $ {{ventasL2B}}</td>
+                                                    <td> $ {{ventasL2C}}</td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col col-sm-6" style="float: left">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <b>Pais:</b> {{ filtro1.pais }} , <b>Año:</b> {{ filtro1.anio }} , <b>Mes:</b> {{ filtro1.mes }}
+                                    </div>
+                                    
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- <div class="form-content " *ngIf="filtro1.tipo === 'ultimo3mestre'">
+                            <h2>Ultimo trimestre</h2>
+                            <div class="col col-sm-6" style="float: left">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <b>Pais:</b> {{ filtro1.pais }} , <b>Año:</b> {{ filtro1.anio }} , <b>Mes:</b> {{ filtro1.mes }}
+                                    </div>
+                                    <div class="card-body">
+                                        <p-chart type="line" [data]="ultimo3" (onDataSelect)="selectData($event)"></p-chart>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <a class="btn rounded-btn " [routerLink]="[ '/dashboard'] " (click)="onLoggedin() ">{{ 'Log in' | translate }}</a>
+                        &nbsp;
+                        <a class="btn rounded-btn " [routerLink]="[ '/signup'] ">{{ 'Register' | translate }}</a> -->
+                        <!-- <button pButton type="submit" label="Ingresar" style="margin-top: 20px"></button> -->
+                    </form>
+                </div>
+                <div class="card-footer center" style="text-align: center">
+                    <!-- <button class="btn btn-info btn-sm" (click)="compare(filtro1, filtro2)">Comparar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!filtro1.activo && !filtro2.activo">
+        <div class="col col-sm-6" style="float: left">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Pais:</b> {{ filtro1.pais }} , <b>Año:</b> {{ filtro1.anio }} , <b>Mes:</b> {{ filtro1.mes }}
+                </div>
+                <div class="card-body">
+                    <p-chart type="doughnut" [data]="compare1"></p-chart>
+
+                    <table style="text-align: left;  font-size: 20px">
+                        <tr>
+                            <th><b style="color:#FF6384 ; font-size: 20px; ">Hair</b></th>
+                            <th><b style="color:#36A2EB ; font-size: 20px; ">Product</b></th>
+                            <th><b style="color:#FFCE56 ; font-size: 20px; ">Medical</b></th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let item of com1">
+                                <div style="font-size: 15px; text-align: right">$ {{ item }}</div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6" style="float: left">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Pais:</b> {{ filtro2.pais }} , <b>Año:</b> {{ filtro2.anio }} , <b>Mes:</b> {{ filtro2.mes }}
+                </div>
+                <div class="card-body">
+                    <p-chart type="doughnut" [data]="compare2"></p-chart>
+
+                    <table style="text-align: left;  font-size: 20px">
+                        <tr>
+                            <th><b style="color:#FF6384 ; font-size: 20px; ">Hair</b></th>
+                            <th><b style="color:#36A2EB ; font-size: 20px; ">Product</b></th>
+                            <th><b style="color:#FFCE56 ; font-size: 20px; ">Medical</b></th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let item of com2">
+                                <div style="font-size: 15px; text-align: right">$ {{ item }}</div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer center" style="text-align: center">
+            <button class="btn btn-info btn-sm" (click)="compareAgain()">Otra Comparación</button>
+        </div>
+    </div>
+</div>

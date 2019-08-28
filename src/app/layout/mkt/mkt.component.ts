@@ -8,6 +8,9 @@ import { LeadNetsuite } from '../../shared/models/leadNetsuite';
 import { VentasService } from '../../shared/services/ventasService.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SelectItem } from 'primeng/api';
+import { Venta } from '../../shared/models/ventas';
+import { FormBuilder } from '@angular/forms';
+import { Filtro } from '../../shared/models/filtro';
 
 @Component({
     selector: 'app-mkt',
@@ -15,6 +18,7 @@ import { SelectItem } from 'primeng/api';
     animations: [routerTransition()]
 })
 export class MktComponent implements OnInit {
+    public filtro: Filtro;
     public today: any;
     public lead: Lead;
     public leads: any;
@@ -36,11 +40,20 @@ export class MktComponent implements OnInit {
     public countCo = 0;
     public fechamin = '';
     public fechamax = '';
+    public aniosT: any;
+    public anios = [];
+    data = [];
+    datahair = [];
+    public venta: Venta;
+    public ventas: Venta[];
     data16 = 0;
     data17 = 0;
     data18 = 0;
     data19 = 0;
     dataHair: any;
+    totalHair: any;
+    totalProducto: any;
+    totalMedical: any;
     totalHair16 = 0;
     totalHair17 = 0;
     totalHair18 = 0;
@@ -73,6 +86,7 @@ export class MktComponent implements OnInit {
     public numbers4P = [];
     public fecha: any;
     public mesCurso: any;
+    public anioCurso: any;
     public totalMesH = 0;
     public totalMesP = 0;
     public totalMesM = 0;
@@ -93,14 +107,12 @@ export class MktComponent implements OnInit {
         // console.log(e);
     }
 
-    constructor(
-        private _funtionsGlobales: FuntionsGLobales,
-        private _leadService: LeadService,
-        private _leadNetsuiteService: LeadNetsuiteService,
-        private _ventas: VentasService
-    ) {
+    constructor(private _ventas: VentasService,
+                private formBuilder: FormBuilder) {
+        this.filtro = new Filtro ('', '', '', '', '' , '', true);
         this.fecha = new Date();
         this.mesCurso = this.fecha.getMonth() + 1;
+        this.anioCurso = this.fecha.getFullYear();
         this.doughnutChartData = {
             labels: ['2016', '2017', '2018', '2019'],
             datasets: [
@@ -165,13 +177,27 @@ export class MktComponent implements OnInit {
         };
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.filtro.pais = 'Mx';
+        this.selectPais('Mx');
+    }
     showDialog() {
+
         this.display = true;
+
     }
 
     selectPais(form) {
-        const country: any = document.getElementById('pais').value;
+        // console.log(form);
+        let country: any;
+        if (form === 'Mx') {
+            country = 'Mx';
+        } else {
+            country = this.filtro.pais;
+        }
+
+        // console.log(country);
         const ps = country;
         this.data16 = 0;
         this.data17 = 0;
@@ -198,12 +224,60 @@ export class MktComponent implements OnInit {
 
         if (ps === 'Global') {
             this._ventas.getVentas().subscribe(res => {
-                console.log(res);
+
             });
         }
 
         this._ventas.getVentasPais(country).subscribe(res => {
-            for (let i = 0; i < res.length; i++) {
+            this.ventas = res;
+            let comparePais = country;
+            for (let i = 0; i < this.ventas.length; i++) {
+                for (let a = 2016; a <= this.anioCurso; a++) {
+                    this.totalProducto = [];
+                    this.totalMedical = [];
+                    this.totalHair = [];
+
+                    this.totalProducto = {
+                        anio: a,
+                        cantidades: []
+                    };
+                    this.totalHair = {
+                        anio: a,
+                        cantidades: []
+                    };
+                    this.totalMedical = {
+                        anio: a,
+                        cantidades: []
+                    };
+                    this.aniosT = {
+                        anios: a,
+                        pais: comparePais,
+                        hair: this.totalHair,
+                        productos: this.totalProducto,
+                        medical: this.totalMedical
+                    };
+                    if (this.anios.length < 4) {
+                        this.anios.push(this.aniosT);
+                    }
+                }
+
+                if (this.ventas[i].tipo === 'hair') {
+                    for (let a = 2016; a <= this.anioCurso; a++) {
+                        if ((res[i].anio = a)) {
+                            this.totalHair.cantidades.push(this.ventas[i].cantidad);
+                        }
+                    }
+                }
+            }
+
+            comparePais = '';
+        });
+        this.anios = [];
+        this._ventas.getVentasPais(country).subscribe(res => {
+
+            this.ventas = res;
+            console.log(this.ventas.length);
+            for (let i = 0; i < this.ventas.length; i++) {
                 if (res[i].tipo === 'hair') {
                     if (res[i].anio === 2016) {
                         this.numbersH.push(res[i].cantidad);
@@ -218,7 +292,6 @@ export class MktComponent implements OnInit {
                         this.totalHair18 = this.totalHair18 + res[i].cantidad;
                         if (res[i].mes <= this.mesCurso) {
                             this.totalMesH = this.totalMesH + res[i].cantidad;
-                            console.log(this.totalMesH);
                         }
                     }
                     if (res[i].anio === 2019) {
@@ -226,7 +299,6 @@ export class MktComponent implements OnInit {
                             this.totalHair19 = this.totalHair19 + res[i].cantidad;
                         }
                         this.numbers4H.push(res[i].cantidad);
-
                     }
                 }
                 if (res[i].tipo === 'medical') {
@@ -250,7 +322,6 @@ export class MktComponent implements OnInit {
                         if (res[i].mes <= this.mesCurso) {
                             this.totalmedical19 = this.totalmedical19 + res[i].cantidad;
                         }
-
                     }
                 }
                 if (res[i].tipo === 'producto') {
@@ -274,7 +345,6 @@ export class MktComponent implements OnInit {
                         if (res[i].mes <= this.mesCurso) {
                             this.totalProducto19 = this.totalProducto19 + res[i].cantidad;
                         }
-
                     }
                 }
             }
@@ -468,6 +538,7 @@ export class MktComponent implements OnInit {
             this.numbers3M = [];
             this.numbers4M = [];
         });
+        // console.log(this.anios);
     }
 
     actualizarLeads() {}

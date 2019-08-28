@@ -2,25 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { __values } from 'tslib';
-import { Venta } from '../models/ventas';
+import { VentaCampana } from '../models/ventasCampana';
 import { GlobalUrl } from './globalUrl';
 import { FuntionsGLobales } from './funtionsGlobales';
 
 @Injectable({
     providedIn: 'root'
 })
-export class VentasService {
+export class VentasCampanaService {
     public url = GlobalUrl.url;
     public logueado: boolean;
-    public venta: Venta;
+    public ventaCampana: VentaCampana;
     constructor(private _http: HttpClient, private _funtionsGLobales: FuntionsGLobales) {}
     getVentas() {
-        return this._http.get(`${this.url}ventas/`);
+        return this._http.get(`${this.url}ventas-campana/`);
     }
-    getVentasPais(pais) {
-        return this._http.get(`${this.url}ventas/${pais}`);
+    getVentasCampana(campana) {
+        return this._http.get(`${this.url}ventas-campana/${campana}`);
     }
-    getVentasCompare(pais, anio, mes) {
-        return this._http.get(`${this.url}ventas/compareReal/${pais}/${anio}/${mes}`);
-    }
+
 }
